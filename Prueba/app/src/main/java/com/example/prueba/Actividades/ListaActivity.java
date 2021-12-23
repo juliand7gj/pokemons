@@ -1,12 +1,9 @@
-package com.example.prueba;
+package com.example.prueba.Actividades;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,17 +13,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.prueba.BD.EntPokemon;
+import com.example.prueba.BD.EntUsuario;
+import com.example.prueba.Entidades.Pokemon;
+import com.example.prueba.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ListaActivity extends AppCompatActivity {
 
     private TableLayout tablaP;
+    public ArrayList<Pokemon> pokemons;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,13 @@ public class ListaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista);
         tablaP = (TableLayout) findViewById(R.id.tablaP);
         tablaP.setStretchAllColumns(true);
+
+        pokemons = new ArrayList<Pokemon>();
         obtenerPokemons();
+
     }
 
-    private void obtenerPokemons(){
+    public void obtenerPokemons(){
         String url = "https://pokeapi.co/api/v2/pokemon/";
 
         StringRequest postRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -45,12 +50,14 @@ public class ListaActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try{
                     JSONObject jsonObject = new JSONObject(response);
-
                     JSONArray lista = (JSONArray) jsonObject.getJSONArray("results");
+
+                    EntPokemon entPokemon = new EntPokemon(getApplicationContext());
 
                     for(int i =0; i< lista.length();i++){
 
                         TableRow tableRow = new TableRow(ListaActivity.this);
+
                         TextView textView = new TextView(ListaActivity.this);
                         textView.setText(lista.getJSONObject(i).getString("name"));
                         tableRow.addView(textView);
@@ -76,8 +83,9 @@ public class ListaActivity extends AppCompatActivity {
                                     textView4.setText(jsonObject2.getString("weight"));
                                     tableRow.addView(textView4);
 
-
-
+                                    if(!entPokemon.pokemonExiste(textView.getText().toString())){
+                                        entPokemon.agregarPokemon(textView.getText().toString(),textView2.getText().toString(),Integer.parseInt(textView3.getText().toString()),Integer.parseInt(textView4.getText().toString()));
+                                    }
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -96,7 +104,6 @@ public class ListaActivity extends AppCompatActivity {
 
 
 
-                        System.out.println("Lista: "+lista.getJSONObject(i).getString("name"));
                     }
 
                 } catch (JSONException e) {
@@ -114,5 +121,6 @@ public class ListaActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(postRequest);
 
     }
+
 
 }
