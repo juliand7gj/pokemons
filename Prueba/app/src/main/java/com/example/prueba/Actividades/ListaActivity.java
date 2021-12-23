@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba.BD.EntPokemon;
 import com.example.prueba.BD.EntUsuario;
+import com.example.prueba.BD.EntUsuvspoke;
 import com.example.prueba.Entidades.Pokemon;
 import com.example.prueba.R;
 
@@ -58,6 +60,9 @@ public class ListaActivity extends AppCompatActivity {
 
                         TableRow tableRow = new TableRow(ListaActivity.this);
 
+                        CheckBox checkBox = new CheckBox(ListaActivity.this);
+                        tableRow.addView(checkBox);
+
                         TextView textView = new TextView(ListaActivity.this);
                         textView.setText(lista.getJSONObject(i).getString("name"));
                         tableRow.addView(textView);
@@ -86,6 +91,17 @@ public class ListaActivity extends AppCompatActivity {
                                     if(!entPokemon.pokemonExiste(textView.getText().toString())){
                                         entPokemon.agregarPokemon(textView.getText().toString(),textView2.getText().toString(),Integer.parseInt(textView3.getText().toString()),Integer.parseInt(textView4.getText().toString()));
                                     }
+
+                                    if (getIntent().getExtras() != null) {
+                                        if (getIntent().getExtras().getString("usuario")!=null){
+                                            EntUsuvspoke entUsuvspoke = new EntUsuvspoke(getApplicationContext());
+                                            if(entUsuvspoke.esFavorito(getIntent().getExtras().getString("usuario"),textView.getText().toString())){
+                                                checkBox.setChecked(true);
+                                            }
+                                        }
+                                    }
+
+
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

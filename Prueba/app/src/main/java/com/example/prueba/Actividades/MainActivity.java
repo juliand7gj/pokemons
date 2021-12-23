@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(entUsuario.contrasenaValida(login.getText().toString(),password.getText().toString())){
                     Intent mIntent = new Intent();
                     mIntent.setClass(getApplicationContext(), ListaActivity.class);
+                    mIntent.putExtra("usuario", login.getText().toString());
                     startActivity(mIntent);
                 }else{
                     Toast.makeText(getApplicationContext(), "Contraseña invalida", Toast.LENGTH_SHORT).show();

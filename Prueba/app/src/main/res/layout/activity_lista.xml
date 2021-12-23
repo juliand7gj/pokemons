@@ -1,66 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Actividades.ListaActivity">
 
 
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:stretchColumns="*"
-        android:id="@+id/tablaP"
-        >
+        android:layout_height="678dp">
 
-
-
-        <TableRow
+        <TableLayout
+            android:id="@+id/tablaP"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-             >
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="Nombre"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:background="@color/black"
-                android:textColor="@color/white"/>
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="Habilidad"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:background="@color/black"
-                android:textColor="@color/white"/>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="Experiencia"
-                android:textSize="19dp"
-                android:textAlignment="center"
-                android:background="@color/black"
-                android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@color/black"
+                    android:text="Favorito"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="Peso"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:background="@color/black"
-                android:textColor="@color/white"/>
-        </TableRow>
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@color/black"
+                    android:text="Nombre"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
 
-    </TableLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@color/black"
+                    android:text="Habilidad"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@color/black"
+                    android:text="Experiencia"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:background="@color/black"
+                    android:text="Peso"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/favoritos"
+        android:layout_width="match_parent"
+        android:layout_height="11dp"
+        android:layout_weight="1"
+        android:text="Actualizar Favoritos" />
+
+</LinearLayout>
