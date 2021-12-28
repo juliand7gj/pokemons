@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -37,6 +39,12 @@ public class ListaActivity extends AppCompatActivity implements Response.Listene
     public ArrayList<CheckBox> checkBoxes;
     private Button favoritos;
 
+    private ScrollView scroll;
+    public int scrollY;
+    public String urlNext;
+    public int contadorScroll;
+    public int extra;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,18 +54,52 @@ public class ListaActivity extends AppCompatActivity implements Response.Listene
 
         pokemons = new ArrayList<Pokemon>();
         checkBoxes = new ArrayList<CheckBox>();
+        urlNext = "";
         obtenerPokemons();
 
         favoritos = (Button) findViewById(R.id.favoritos);
         favoritos.setOnClickListener(this);
 
+        scroll = (ScrollView) findViewById(R.id.scroll);
+        scrollY = 0;
+        contadorScroll=0;
+        extra = 0;
+        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+
+                if(scrollY==0){
+                    contadorScroll++;
+                    scrollY = ((scroll.getHeight()-100)*contadorScroll);
+                    obtenerPokemons();
+                }else{
+                        if((scroll.getScrollY())==(scrollY)){
+                            contadorScroll++;
+                            extra = extra+5;
+                            scrollY = ((scroll.getHeight()-100)*contadorScroll)-extra;
+                            obtenerPokemons();
+                        }
+
+
+                }
+
+            }
+        });
+
     }
 
     public void obtenerPokemons(){
 
-        StringRequest postRequest = new StringRequest(Request.Method.GET, url, this::onResponse, this::onErrorResponse);
+        if(urlNext.equals("")){
+            StringRequest postRequest = new StringRequest(Request.Method.GET, url, this::onResponse, this::onErrorResponse);
 
-        Volley.newRequestQueue(this).add(postRequest);
+            Volley.newRequestQueue(this).add(postRequest);
+        }else{
+            StringRequest postRequest = new StringRequest(Request.Method.GET, urlNext, this::onResponse, this::onErrorResponse);
+
+            Volley.newRequestQueue(this).add(postRequest);
+        }
+
 
     }
 
@@ -138,9 +180,7 @@ public class ListaActivity extends AppCompatActivity implements Response.Listene
 
             }
             if(jsonObject.getString("next")!=null){
-                String urlNext = jsonObject.getString("next");
-                StringRequest postRequest = new StringRequest(Request.Method.GET, urlNext, this::onResponse, this::onErrorResponse);
-                Volley.newRequestQueue(this).add(postRequest);
+                urlNext = jsonObject.getString("next");
             }
 
         } catch (JSONException e) {
