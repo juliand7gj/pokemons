@@ -61,7 +61,6 @@ public class ListaActivity extends AppCompatActivity implements Response.Listene
 
     }
 
-
     @Override
     public void onResponse(Object response) {
 
@@ -138,6 +137,11 @@ public class ListaActivity extends AppCompatActivity implements Response.Listene
 
 
             }
+            if(jsonObject.getString("next")!=null){
+                String urlNext = jsonObject.getString("next");
+                StringRequest postRequest = new StringRequest(Request.Method.GET, urlNext, this::onResponse, this::onErrorResponse);
+                Volley.newRequestQueue(this).add(postRequest);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -179,7 +183,6 @@ public class ListaActivity extends AppCompatActivity implements Response.Listene
             }
 
             Toast.makeText(getApplicationContext(), "Se actualizaron los favoritos", Toast.LENGTH_SHORT).show();
-
 
         }
     }
