@@ -1,3 +1,3 @@
-# pokemons
+# Pokemons
 
-Para ingresar escribir "julian". Segunda pantalla con el listado de pokemons
+Agregar pokemons favoritos a uno a varios usuarios.
