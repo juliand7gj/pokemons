@@ -1,3 +1,3 @@
 # Pokemons
 
-Agregar pokemons favoritos a uno a varios usuarios.
+Agregar pokemons favoritos a uno o varios usuarios.
