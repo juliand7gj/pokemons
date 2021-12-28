@@ -8,7 +8,6 @@ public class Pokemon {
     public int peso;
 
     public Pokemon(String nombre) {
-
         this.nombre = nombre;
     }
 

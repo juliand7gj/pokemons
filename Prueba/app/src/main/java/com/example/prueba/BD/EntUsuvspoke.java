@@ -40,12 +40,16 @@ public class EntUsuvspoke {
 
         String sql = "INSERT INTO ususvspoke(nombreusu,nombrepoke) " +
                 "VALUES('"+usuario+"','"+pokemon+"');";
+
+        System.out.println("Agregar:"+sql);
+
         BDSQ.execSQL(sql);
 
     }
 
     public void eliminarFavorito(String usuario, String pokemon){
         String sql = "DELETE FROM ususvspoke where nombreusu='"+usuario+"' and "+"nombrepoke='"+pokemon+"'";
+        System.out.println("Eliminar:"+sql);
         BDSQ.execSQL(sql);
     }
 

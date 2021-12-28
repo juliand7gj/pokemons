@@ -46,7 +46,9 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(getApplicationContext(), "Se creo con exito", Toast.LENGTH_SHORT).show();
                 Intent mIntent = new Intent();
                 mIntent.setClass(getApplicationContext(), ListaActivity.class);
+                mIntent.putExtra("usuario", usuario.getText().toString());
                 startActivity(mIntent);
+                this.finish();
             }
             entUsuario.closebd();
 
